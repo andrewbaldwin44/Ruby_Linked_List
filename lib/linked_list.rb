@@ -55,11 +55,13 @@ class LinkedList
 
   def append(element)
     element = create_node(element)
+
     if head.nil?
       self.head = element
     else
       tail_node.next_node = element
     end
+
     self.size += 1
     self
   end
@@ -68,6 +70,7 @@ class LinkedList
     element = create_node(element)
     element.next_node = head
     self.head  = element
+
     self.size += 1
     self
   end
@@ -106,25 +109,18 @@ class LinkedList
         self.head = nil
         self.tail = nil
       end
+
       self.size -= 1
       current_node
     end
   end
 
   def contains?(value)
-    unless head.nil?
-      current_node = head
-
-      until current_node.nil?
-        return true if current_node.value == value
-        current_node = current_node.next_node
-      end
-    end
-    false
+    find(value) ? true : false
   end
 
   def find(value)
-    unless head.nil? || !self.contains?(value)
+    unless head.nil?
       current_node = head
       current_index = 0
 
