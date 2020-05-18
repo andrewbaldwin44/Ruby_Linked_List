@@ -117,7 +117,6 @@ puts "At a specified index!"
 
 puts "\nOur list for reference:\n\n"
 puts list
-p list.size
 
 puts "\nInserting at index 4:"
 puts list.insert_at("bananaannas", 4)

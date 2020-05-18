@@ -133,6 +133,9 @@ class LinkedList
   end
 
   def insert_at(value, index)
+    return prepend(value) if index == 0
+    return append(value) if index == size
+
     value = create_node(value)
 
     previous_node, current_node = get_nodes_at(index)
@@ -152,6 +155,8 @@ class LinkedList
   end
 
   def remove_at(index)
+    return pop if index == size
+
     previous_node, current_node = get_nodes_at(index)
 
     unless previous_node.nil? && current_node.nil?
