@@ -26,9 +26,27 @@ class LinkedList
     element
   end
 
-  def valid_index(index)
+  def valid(index)
     index = size - index.abs if index < 0
     index > size || index < 0 ? nil : index
+  end
+
+  def get_nodes_at(index)
+    index = valid(index)
+
+    unless head.nil? || index.nil?
+      previous_node = nil
+      current_node = head
+      current_index = 0
+
+      until current_index == index
+        previous_node = current_node
+        current_node = current_node.next_node
+        current_index += 1
+      end
+
+      return previous_node, current_node
+    end
   end
 
   public
@@ -55,7 +73,7 @@ class LinkedList
   end
 
   def at(index)
-    index = valid_index(index)
+    index = valid(index)
 
     unless head.nil? || index.nil?
       current_index = 0
@@ -120,19 +138,10 @@ class LinkedList
 
   def insert_at(value, index)
     value = create_node(value)
-    index = valid_index(index)
 
-    unless head.nil? || index.nil?
-      previous_node = nil
-      current_node = head
-      current_index = 0
+    previous_node, current_node = get_nodes_at(index)
 
-      until current_index == index
-        previous_node = current_node
-        current_node = current_node.next_node
-        current_index += 1
-      end
-
+    unless previous_node.nil? && current_node.nil?
       if previous_node.nil?
         value.next_node = head
         self.head = value
@@ -147,19 +156,9 @@ class LinkedList
   end
 
   def remove_at(index)
-    index = valid_index(index)
+    previous_node, current_node = get_nodes_at(index)
 
-    unless head.nil? || index.nil?
-      previous_node = nil
-      current_node = head
-      current_index = 0
-
-      until current_index == index
-        previous_node = current_node
-        current_node = current_node.next_node
-        current_index += 1
-      end
-
+    unless previous_node.nil? && current_node.nil?
       if previous_node.nil?
         self.head = head.next_node
       else
@@ -219,8 +218,6 @@ class LinkedList
     output
   end
 end
-
-
 
 class Node
   def initialize(value)

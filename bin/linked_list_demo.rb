@@ -143,6 +143,9 @@ puts list.remove_at(0)
 puts "\nDeleting the tail:"
 puts list.remove_at(-1)
 
+puts "\nDeleting an invalid index"
+puts list.remove_at(-10)
+
 puts "\n\nLast but not least!"
 puts "We can create a nested linked list!\n\n"
 
