@@ -31,24 +31,6 @@ class LinkedList
     index > size || index < 0 ? nil : index
   end
 
-  def get_nodes_at(index)
-    index = valid(index)
-
-    unless head.nil? || index.nil?
-      previous_node = nil
-      current_node = head
-      current_index = 0
-
-      until current_index == index
-        previous_node = current_node
-        current_node = current_node.next_node
-        current_index += 1
-      end
-
-      return previous_node, current_node
-    end
-  end
-
   public
 
   attr_reader :head, :tail, :size
@@ -87,8 +69,6 @@ class LinkedList
         current_node = current_node.next_node
       end
       current_node
-    else
-      nil
     end
   end
 
@@ -138,7 +118,8 @@ class LinkedList
 
     value = create_node(value)
 
-    previous_node, current_node = get_nodes_at(index)
+    previous_node = at(index - 1)
+    current_node = previous_node.next_node if previous_node
 
     unless previous_node.nil? && current_node.nil?
       if previous_node.nil?
@@ -157,10 +138,11 @@ class LinkedList
   def remove_at(index)
     return pop if index == size
 
-    previous_node, current_node = get_nodes_at(index)
+    previous_node = at(index - 1)
+    current_node = previous_node.next_node if previous_node
 
     unless previous_node.nil? && current_node.nil?
-      if previous_node.nil?
+      if previous_node.nil? || current_node.nil?
         self.head = head.next_node
       else
         previous_node.next_node = current_node.next_node
