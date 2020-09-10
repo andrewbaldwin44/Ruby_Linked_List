@@ -1,4 +1,4 @@
-require_relative "../lib/linked_list"
+require_relative "../linked_list"
 
 puts "We first make a new list..."
 list = LinkedList.new
